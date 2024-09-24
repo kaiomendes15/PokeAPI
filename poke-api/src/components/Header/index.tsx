@@ -11,10 +11,11 @@ const Header = () => {
     const {count} = usePoke();
 
     return (
-        <div className="header">
-            <img src={logoPokemon} alt="logo"/>
-            <p>Conheça todos os {count} Pokemons</p>
-        </div>
+        <header>
+            <h1>Pokédex</h1>
+            <p>Search for a Pokémon by name or using its National Pokédex number.</p>
+            {/* <p className="available">There are <span>{count}</span> Pokémons available!</p> */}
+        </header>
     );
 };
 

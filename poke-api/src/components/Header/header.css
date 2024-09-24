@@ -1,21 +1,23 @@
-.header {
+header {
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
-    margin-bottom: 2rem;
-    background-color: #f05454;
+    justify-content: flex-start;
     width: 100vw;
-    margin-top: 0;
-    padding: 1rem;
+    margin-top: 1.5rem;
+    padding: 2rem;
 }
 
-.header img {
+header h1{
+    color: #2e3057;
+}
+
+header img {
     width: 230px;
     margin-bottom: 10px;
 }
 
-.header p {
-    font-weight: 600;
-    color: #fff;
+header p {
+    font-weight: 400;
+    color: #2e3057;
 }
+

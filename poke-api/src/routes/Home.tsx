@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import SearchBar from "../components/SearchBar";
+import Header from "../components/Header";
+import Container from "../components/Container";
 
 
 const Home = () => {
@@ -9,9 +11,10 @@ const Home = () => {
     // const {loadPokemons} = 
 
     return (
-        <div>
-            <SearchBar />
-        </div>
+            <Container>
+                <Header />
+                <SearchBar />
+            </Container>
     )
 };
 
