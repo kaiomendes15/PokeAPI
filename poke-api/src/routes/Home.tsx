@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import SearchBar from "../components/SearchBar";
 import Header from "../components/Header";
 import Container from "../components/Container";
+import PokemonList from "../components/PokemonList";
 
 
 const Home = () => {
@@ -14,6 +15,7 @@ const Home = () => {
             <Container>
                 <Header />
                 <SearchBar />
+                <PokemonList />
             </Container>
     )
 };
