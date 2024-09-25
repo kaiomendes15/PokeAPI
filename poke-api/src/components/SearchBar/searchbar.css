@@ -16,12 +16,14 @@
     width: 230px;
     background-color: #ebf3f5;
     color: #2e3057;
+    transition: 100ms;
 }
 
 .searchbar-content input::-webkit-input-placeholder{
     color: #8c8ca3;
     font-weight: 400;
 }
+
 
 .searchbar-content .search-btn {
     padding: 15px 3px 8px 10px ;
