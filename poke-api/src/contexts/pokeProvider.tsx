@@ -6,30 +6,28 @@ type PokeProviderProps = {
 };
 
 type PokeContextTypes = {
-    loadPokemons: () => Promise<void>;
+    loadPokemons: (number?: number) => Promise<void>;
     count: number,
-    pokemons: PokeTypes[]
-
+    pokemons: PokeTypes[],
 };
 
 const PokeContext = createContext({} as PokeContextTypes);
 
 const PokeProvider = ({children}: PokeProviderProps) => {
 
-    // GET
+    // ? GET
 
     const [pokemons, setPokemon] = useState<PokeTypes[]>([])
     const [count, setCount] = useState(0)
-    const url = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=20"
 
-    const loadPokemons = async () => {
+    const loadPokemons = async (urlValue: number = 0) => {
         
         try {
 
-            const response = await axios.get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=20")
+            const response = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=${urlValue}&limit=20`)
 
             const data = response.data
-            console.log(data)
+            // console.log(data)
 
             // Armazenar a quantidade de pokemons
             const quantPokemon = data.count
@@ -39,6 +37,8 @@ const PokeProvider = ({children}: PokeProviderProps) => {
             const results = data.results
             console.log(results)
             setPokemon(results)
+
+            
 
         } catch (error) {
             console.log(error);

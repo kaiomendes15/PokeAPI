@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { usePoke } from "../../contexts/pokeProvider";
+import ButtonNext from "../ButtonNext";
 
 
 const PokemonList = () => {
@@ -9,14 +10,16 @@ const PokemonList = () => {
 
     // GET
     const {loadPokemons} = usePoke();
+    var num = 0
 
     useEffect(() => {
-        loadPokemons()
+        loadPokemons(num)
 
     }, []);
 
     return (
         <div>
+            <ButtonNext onClick={() => loadPokemons(num + 20)}> passar </ButtonNext>
             {pokemons.length === 0 ? (<p>Carregando...</p>) : (
                 pokemons.map((pokemon) => (
                     <div className="pokemon-card" key={pokemon.url}>
