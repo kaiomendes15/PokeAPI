@@ -35,7 +35,7 @@ const PokeProvider = ({children}: PokeProviderProps) => {
 
             // Armazenar o nome e url de cada pokemon
             const results = data.results
-            console.log(results)
+            // console.log(results)
             setPokemon(results)
 
             
@@ -44,10 +44,6 @@ const PokeProvider = ({children}: PokeProviderProps) => {
             console.log(error);
         };
     };
-
-    useEffect(() => {
-        loadPokemons();
-    }, []);
 
     const value: PokeContextTypes = {
         loadPokemons,

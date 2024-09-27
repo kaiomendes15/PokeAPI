@@ -1,12 +1,12 @@
 import React from "react";
 
 type ButtonNextProps = {
-    onClick?: () => Promise<void>;
+    onClick?: () => void;
     children: React.ReactNode;
 }
 
 
-const ButtonNext = ({onClick, children}: ButtonNextProps) => {
+const InteractButton = ({onClick, children}: ButtonNextProps) => {
 
     return (
         <div>
@@ -15,4 +15,4 @@ const ButtonNext = ({onClick, children}: ButtonNextProps) => {
     )
 };
 
-export default ButtonNext;
+export default InteractButton;
