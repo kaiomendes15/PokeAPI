@@ -7,6 +7,7 @@ type PokeProviderProps = {
 
 type PokeContextTypes = {
     loadPokemons: (number?: number) => Promise<void>;
+    loadPokemonInfo: (name?: string) => Promise<void>;
     count: number,
     pokemons: PokeTypes[],
 };
@@ -20,21 +21,21 @@ const PokeProvider = ({children}: PokeProviderProps) => {
     const [pokemons, setPokemon] = useState<PokeTypes[]>([])
     const [count, setCount] = useState(0)
 
-    const loadPokemons = async (urlValue: number = 0) => {
+    const loadPokemons = async (urlValue: number = 0, name: string = "") => {
         
         try {
 
-            const response = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=${urlValue}&limit=20`)
+            const responsePokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=${urlValue}&limit=20`)
 
-            const data = response.data
-            // console.log(data)
+            const dataPokemon = responsePokemon.data
+            // console.log(dataPokemon)
 
             // Armazenar a quantidade de pokemons
-            const quantPokemon = data.count
+            const quantPokemon = dataPokemon.count
             setCount(quantPokemon)
 
             // Armazenar o nome e url de cada pokemon
-            const results = data.results
+            const results = dataPokemon.results
             // console.log(results)
             setPokemon(results)
 
@@ -45,10 +46,37 @@ const PokeProvider = ({children}: PokeProviderProps) => {
         };
     };
 
+    const [pokemonInfo, setPokemonInfo] = useState<PokeTypes[]>([])
+
+    const loadPokemonInfo = async (name: string = "") => {
+        try {
+
+            const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
+
+            const data = response.data
+            // console.log(data)
+            
+
+            // pegando a foto
+            // para exibir na tela tem que usar um map e tirar esse 
+            // ".front_default", ele deve ser passado dentro do map.
+            const artwork = data.sprites.other["official-artwork"].front_default
+            console.log(artwork)
+
+            
+
+            
+
+        } catch (error) {
+            console.log(error);
+        };
+    }
+
     const value: PokeContextTypes = {
         loadPokemons,
         count,
         pokemons,
+        loadPokemonInfo,
     };
 
     return (

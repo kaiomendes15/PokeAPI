@@ -1,0 +1,23 @@
+.interact-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding: 0px 30px;
+}
+
+.interact-buttons .buttonNext, .buttonPrevious {
+    background-color: #f2fafa;
+    border: none;
+    color: #2e3057;
+    padding: 8px;
+    border-radius: 25%;
+    cursor: pointer;
+    transition: 500ms;
+}
+
+
+
+

@@ -3,14 +3,15 @@ import React from "react";
 type ButtonNextProps = {
     onClick?: () => void;
     children: React.ReactNode;
+    className?: string;
 }
 
 
-const InteractButton = ({onClick, children}: ButtonNextProps) => {
+const InteractButton = ({onClick, children, className}: ButtonNextProps) => {
 
     return (
         <div>
-            <button onClick={onClick}>{children}</button>
+            <button className={className} onClick={onClick}>{children}</button>
         </div>
     )
 };
