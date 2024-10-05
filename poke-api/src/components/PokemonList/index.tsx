@@ -13,33 +13,46 @@ const PokemonList = () => {
 
     // GET
     const {loadPokemons} = usePoke();
-    const [page, setPage] = useState(1);
+    const [maxPokemon, setMaxPokemon] = useState(21);
+    const [minPokemon, setMinPokemon] = useState(1);
 
     
     useEffect(() => {
         // const newOffset = (page - 1) * 20;
-        loadPokemons();
-
-    }, []);
-
-    // const handleNext = () => {
-    //     const numPages = Math.ceil(count / 20);
-    //     // console.log(numPages)
-    //     if (page == numPages) {
-    //         setPage(page)
-    //     } else {
-    //         setPage(prevPage => prevPage + 1);
-    //     }
-    // }
-
-    // const handlePrevious = () => {
-    //     if (page == 1) {
-    //         setPage(page)
-    //     } else {
-    //         setPage(prevPage => prevPage - 1)
-    //     }
+        loadPokemons(minPokemon, maxPokemon);
+        // console.log(maxPokemon, minPokemon);
+        // console.log(count);
         
-    // }
+
+    }, [minPokemon, maxPokemon]);
+
+    const handleNext = () => {
+
+        if (maxPokemon >= count) {
+            setMaxPokemon(maxPokemon);
+            setMinPokemon(minPokemon);
+        } else {
+            setMaxPokemon(prevMax => prevMax + 20);
+            setMinPokemon(prevMin => prevMin + 20);
+            loadPokemons(minPokemon, maxPokemon);
+            // console.log(maxPokemon, minPokemon);
+            
+        };
+
+    };
+
+    const handlePrevious = () => {
+        if (minPokemon == 1) {
+            setMinPokemon(minPokemon);
+            setMaxPokemon(maxPokemon);
+        } else {
+            setMaxPokemon(prevMax => prevMax - 20);
+            setMinPokemon(prevMin => prevMin - 20);
+            loadPokemons(minPokemon, maxPokemon);
+            // console.log(maxPokemon, minPokemon);
+        }
+        
+    }
 
     const showType = (types: any) => {
         if (types[1]) {
@@ -67,24 +80,26 @@ const PokemonList = () => {
    
 
     return (
-        <div className="pokemon-list">
-            {/* <div className="interact-buttons">
+        <>
+            <div className="interact-buttons">
                 <InteractButton className="buttonPrevious" onClick={handlePrevious}> voltar </InteractButton>
                 <InteractButton className="buttonNext" onClick={handleNext}> passar </InteractButton>
-            </div> */}
-            {pokemons.length === 0 ? (<p>Carregando...</p>) : (
-                pokemons.map((pokemon) => (
-                    
-                    <BackgroundColorSetter types={pokemon.data.types} key={pokemon.data.id}>
-                        <img className="pokemon-img" src={pokemon.data.sprites.other["official-artwork"].front_default} alt={pokemon.data.name} />
-                        {adaptName(pokemon.data.types, pokemon.data.name)}
-                        <h3>{pokemon.data.types.name}</h3>
-                        {showType(pokemon.data.types)}
-                    </BackgroundColorSetter>
-                ))
-            )}
-            
-        </div>
+            </div>
+            <div className="pokemon-list">
+                {pokemons.length === 0 ? (<p>Carregando...</p>) : (
+                    pokemons.map((pokemon) => (
+                        
+                        <BackgroundColorSetter types={pokemon.data.types} key={pokemon.data.id}>
+                            <img className="pokemon-img" src={pokemon.data.sprites.other["official-artwork"].front_default} alt={pokemon.data.name} />
+                            {adaptName(pokemon.data.types, pokemon.data.name)}
+                            <h3>{pokemon.data.types.name}</h3>
+                            {showType(pokemon.data.types)}
+                        </BackgroundColorSetter>
+                    ))
+                )}
+                
+            </div>
+        </>
     )
 };
 

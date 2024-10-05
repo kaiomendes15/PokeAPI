@@ -6,7 +6,7 @@ type PokeProviderProps = {
 };
 
 type PokeContextTypes = {
-    loadPokemons: (urlValue?: number) => Promise<void>;
+    loadPokemons: (startPokemon?: number, endPokemon?: number) => Promise<void>;
     count: number,
     pokemons: AxiosResponse<any, any>[],
 };
@@ -20,25 +20,25 @@ const PokeProvider = ({children}: PokeProviderProps) => {
     const [pokemons, setPokemon] = useState<AxiosResponse<any, any>[]>([])
     const [count, setCount] = useState(0)
 
-    const loadPokemons = async (urlValue: number = 0) => {
+    const loadPokemons = async (startPokemon: number = 1, endPokemon: number = 21) => {
         
         try {
 
-            // const responsePokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=${urlValue}&limit=20`)
+            const responsePokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon`)
 
-            // const dataPokemon = responsePokemon.data
+            const dataPokemon = responsePokemon.data
             // console.log(dataPokemon)
 
             // Armazenar a quantidade de pokemons
-            // const quantPokemon = dataPokemon.count
-            // setCount(quantPokemon)
+            const quantPokemon = dataPokemon.count
+            setCount(quantPokemon)
 
             // Armazenar o nome e url de cada pokemon
             // const results = dataPokemon.results
             // console.log(results)
 
             const endpoints = [];
-            for (let i = 1; i < 500; i++) {
+            for (let i = startPokemon; i < endPokemon; i++) {
                 // console.log(i)
                 endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}`)
             };
