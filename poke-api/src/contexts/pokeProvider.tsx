@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import React, {createContext, useContext, useEffect, useState} from "react";
 
 type PokeProviderProps = {
@@ -6,10 +6,9 @@ type PokeProviderProps = {
 };
 
 type PokeContextTypes = {
-    loadPokemons: (number?: number) => Promise<void>;
-    loadPokemonInfo: (name?: string) => Promise<void>;
+    loadPokemons: (urlValue?: number) => Promise<void>;
     count: number,
-    pokemons: PokeTypes[],
+    pokemons: AxiosResponse<any, any>[],
 };
 
 const PokeContext = createContext({} as PokeContextTypes);
@@ -18,65 +17,61 @@ const PokeProvider = ({children}: PokeProviderProps) => {
 
     // ? GET
 
-    const [pokemons, setPokemon] = useState<PokeTypes[]>([])
+    const [pokemons, setPokemon] = useState<AxiosResponse<any, any>[]>([])
     const [count, setCount] = useState(0)
 
-    const loadPokemons = async (urlValue: number = 0, name: string = "") => {
+    const loadPokemons = async (urlValue: number = 0) => {
         
         try {
 
-            const responsePokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=${urlValue}&limit=20`)
+            // const responsePokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=${urlValue}&limit=20`)
 
-            const dataPokemon = responsePokemon.data
+            // const dataPokemon = responsePokemon.data
             // console.log(dataPokemon)
 
             // Armazenar a quantidade de pokemons
-            const quantPokemon = dataPokemon.count
-            setCount(quantPokemon)
+            // const quantPokemon = dataPokemon.count
+            // setCount(quantPokemon)
 
             // Armazenar o nome e url de cada pokemon
-            const results = dataPokemon.results
+            // const results = dataPokemon.results
             // console.log(results)
-            setPokemon(results)
+
+            const endpoints = [];
+            for (let i = 1; i < 500; i++) {
+                // console.log(i)
+                endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}`)
+            };
+            // console.log(endpoints)
+
+            // * axios.all is a helper method built into Axios to deal with concurrent requests. Instead of making multiple HTTP requests individually, the axios.all method allows us to make multiple HTTP requests to our endpoints altogether.
+
+            const response = axios.all(endpoints.map((endpoint) => axios.get(endpoint))).then((res) => setPokemon(res)
+            )
+
+            // console.log(res);
+            
+            
 
             
+            
+            // const response = endpoints.map((endpoint) => await axios.get(endpoint))
+
+            // setPokemon(results)
 
         } catch (error) {
             console.log(error);
         };
     };
-
-    const [pokemonInfo, setPokemonInfo] = useState<PokeTypes[]>([])
-
-    const loadPokemonInfo = async (name: string = "") => {
-        try {
-
-            const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
-
-            const data = response.data
-            // console.log(data)
             
 
-            // pegando a foto
-            // para exibir na tela tem que usar um map e tirar esse 
-            // ".front_default", ele deve ser passado dentro do map.
-            const artwork = data.sprites.other["official-artwork"].front_default
-            console.log(artwork)
+    
 
-            
-
-            
-
-        } catch (error) {
-            console.log(error);
-        };
-    }
 
     const value: PokeContextTypes = {
         loadPokemons,
         count,
         pokemons,
-        loadPokemonInfo,
     };
 
     return (
