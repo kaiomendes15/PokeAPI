@@ -14,7 +14,6 @@ const Home = () => {
     return (
             <Container>
                 <Header />
-                <SearchBar />
                 <PokemonList />
             </Container>
     )
