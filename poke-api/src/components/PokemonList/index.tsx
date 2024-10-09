@@ -19,18 +19,24 @@ const PokemonList = () => {
     const {loadPokemons} = usePoke();
     const [maxPokemon, setMaxPokemon] = useState(21);
     const [minPokemon, setMinPokemon] = useState(1);
-    
+
+
+    // filtrar e buscar pokemons
     const [query, setQuery] = useState("")
 
     const filteredPokemons = pokemons.filter(pokemon => {
         return pokemon.data.name.toLowerCase().includes(query.toLowerCase())
     })
+
+    // trocar a imagem
+    const {sprite} = usePoke()
     
     useEffect(() => {
         // const newOffset = (page - 1) * 20;
         
         console.log(maxPokemon);
         console.log(minPokemon);
+        
         
         loadPokemons(query, minPokemon, maxPokemon);
         // console.log(maxPokemon, minPokemon);
@@ -117,7 +123,15 @@ const PokemonList = () => {
         }
     }
 
-    
+    const changeSprite = (pokemonSprite: any) => {
+
+        if (sprite == 1) {
+            return pokemonSprite.data.sprites.front_default
+        } else {
+            return pokemonSprite.data.sprites.other["official-artwork"].front_default
+        }
+    }
+
     
 
    
@@ -164,7 +178,7 @@ const PokemonList = () => {
                         <BackgroundColorSetter types={pokemon.data.types} key={pokemon.data.id}>
                             <div className="infos">
                                 {showID(pokemon.data.id)}
-                                <img className="pokemon-img" src={pokemon.data.sprites.other["official-artwork"].front_default} alt={pokemon.data.name} />
+                                <img className="pokemon-img" src={changeSprite(pokemon)} alt={pokemon.data.name} />
                                 {adaptName(pokemon.data.types, pokemon.data.name)}
                                 {showType(pokemon.data.types)}
                             </div>
