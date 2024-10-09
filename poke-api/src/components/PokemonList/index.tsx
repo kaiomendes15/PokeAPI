@@ -28,8 +28,6 @@ const PokemonList = () => {
         return pokemon.data.name.toLowerCase().includes(query.toLowerCase())
     })
 
-    // trocar a imagem
-    const {sprite} = usePoke()
     
     useEffect(() => {
         // const newOffset = (page - 1) * 20;
@@ -42,30 +40,30 @@ const PokemonList = () => {
         // console.log(maxPokemon, minPokemon);
         // console.log(count);
         
-
+        
     }, [minPokemon, maxPokemon]);
-
+    
     // useEffect(() => {
-
+        
     //     // loadPokemons("", 1, 1025)
     // }, [query])
-
+    
     const handleNext = () => {
-
+        
         if (maxPokemon == 1021) {
             setMaxPokemon(maxPokemon + 4);
             setMinPokemon(minPokemon + 4);
         } else {
             setMaxPokemon(prevMax => prevMax + 20);
             setMinPokemon(prevMin => prevMin + 20);    
-
+            
             loadPokemons("", minPokemon, maxPokemon);
             // console.log(maxPokemon, minPokemon);
             
         };
-
+        
     };
-
+    
     const handlePrevious = () => {
         if (minPokemon == 1) {
             setMinPokemon(minPokemon);
@@ -78,7 +76,7 @@ const PokemonList = () => {
         };
         
     };
-
+    
     const showType = (types: any) => {
         if (types[1]) {
             return <p className="type-text"><span>{types[0].type.name}
@@ -87,7 +85,7 @@ const PokemonList = () => {
             return <p className="type-text"><span>{types[0].type.name}</span></p>
         };
     };
-
+    
     const adaptName = (types: any, children: React.ReactNode) => {
         if (types[0].type.name == "dark" || types[0].type.name == "ghost" || types[0].type.name == "rock" || types[0].type.name == "psychic" || types[0].type.name == "dragon") {
             return (
@@ -99,8 +97,8 @@ const PokemonList = () => {
             );
         };
     };
-
-
+    
+    
     const showID = (id: string) => {
         // console.log(id);
         
@@ -122,13 +120,21 @@ const PokemonList = () => {
             );
         }
     }
-
+    
+    // trocar a imagem
+    const {sprite} = usePoke()
     const changeSprite = (pokemonSprite: any) => {
-
+        
         if (sprite == 1) {
-            return pokemonSprite.data.sprites.front_default
+            
+            return (
+                <img className="pokemon-img normalImg" src={pokemonSprite.data.sprites.front_default} alt={pokemonSprite.data.name} />
+            )
         } else {
-            return pokemonSprite.data.sprites.other["official-artwork"].front_default
+            
+            return (
+                <img className="pokemon-img pixelImg" src={pokemonSprite.data.sprites.other["official-artwork"].front_default} alt={pokemonSprite.data.name} />
+            )
         }
     }
 
@@ -178,7 +184,7 @@ const PokemonList = () => {
                         <BackgroundColorSetter types={pokemon.data.types} key={pokemon.data.id}>
                             <div className="infos">
                                 {showID(pokemon.data.id)}
-                                <img className="pokemon-img" src={changeSprite(pokemon)} alt={pokemon.data.name} />
+                                {changeSprite(pokemon)}
                                 {adaptName(pokemon.data.types, pokemon.data.name)}
                                 {showType(pokemon.data.types)}
                             </div>

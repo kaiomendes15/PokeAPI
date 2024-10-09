@@ -13,10 +13,27 @@
     
 }
 
-.pokemon-img {
+@keyframes fade {
+    0% {
+        opacity: 0;
+        transform: translateY(5px) scale(0.9);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0px) scale(1)
+
+    }
+}
+
+.pokemon-list .pokemon-img {
     width: 180px;
     padding: 5px;
+    animation: fade 1s;
+    
 }
+
+
 
 .pokemon-card {
     display: flex;
@@ -31,6 +48,14 @@
     -webkit-box-shadow: 4px 4px 9px -7px rgba(0,0,0,0.71);
     -moz-box-shadow: 4px 4px 9px -7px rgba(0,0,0,0.71);
     box-shadow: 4px 4px 9px -7px rgba(0,0,0,0.71);
+
+    transition: 500ms;
+    animation: fade 0.3s;
+}
+
+.pixelImg {
+    transition: 500ms;
+    animation: fade 0.3s;
 }
 
 .light-background-names {
@@ -55,6 +80,7 @@
     justify-content: center;
     align-items: center;
     padding: 0 20px;
+    transition: 500ms;
 }
 
 .id {
