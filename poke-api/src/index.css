@@ -9,13 +9,51 @@ body {
   background-color: #f2fafa;
   display: flex;
   justify-content: center;
-  width: 100vw;
-  max-width: 100%;
-  overflow-x: hidden;
+  height: 100vh;
   box-sizing: border-box;
+  
 }
 
 a {
   text-decoration: none;
+}
+/* Contêiner principal */
+.container {
+  width: 100vw;
+  max-width: 430px; /* Mantém a largura máxima da tela do iPhone 14 */
+  height: calc(100vw * (932 / 430)); /* Proporção da tela do iPhone 14 */
+  max-height: 932px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+@media (min-width: 1024px) {
+  .content{
+    margin-top: 1rem;
+    margin-bottom: 5rem;
+    max-width: calc(100vh * (430 / 932)); /* Calcula a largura com base na altura, mantendo proporção */
+    max-height: 100%; /* Altura total da viewport */
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Para um efeito de leve sombra */
+    border-radius: 25px; /* Canto arredondado */
+  } 
+  body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  background-color: #f0f0f0; /* Fundo cinza claro para destacar o contêiner */
+  }
+  header {
+    max-width: calc(100vh * (430 / 932));
+    max-height: 100vh;
+  }
+  .tela {
+    max-height: 932px;
+  }
+  
 }
 

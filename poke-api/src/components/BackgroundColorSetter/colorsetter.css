@@ -46,3 +46,9 @@
 .dark {
     background-color: rgba(0, 0, 0, 0.397);
 }
+
+@media (min-width: 1024px) {
+    .pokemon-card {
+        max-width: 90%;
+    }
+}

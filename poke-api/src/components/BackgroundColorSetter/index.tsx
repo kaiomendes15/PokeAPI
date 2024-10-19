@@ -1,5 +1,6 @@
 import React from "react";
 import './colorsetter.css'
+import '../../index.css'
 
 type BackgroundColorSetterProps = {
     children: React.ReactNode

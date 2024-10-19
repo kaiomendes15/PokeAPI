@@ -11,6 +11,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 // Pages
 import Home from './routes/Home.tsx'
 
+import './index.css'
+import './components/BackgroundColorSetter/colorsetter.css'
+
 const router = createBrowserRouter([
   {
     path: "/",

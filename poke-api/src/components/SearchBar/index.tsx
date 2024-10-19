@@ -3,6 +3,7 @@ import { GoSearch } from "react-icons/go";
 import { usePoke } from "../../contexts/pokeProvider";
 import './searchbar.css'
 import slider from '../../images/sliders-horizontal-thin-svgrepo-com (2).svg'
+import '../../index.css'
 
 
 // ! APARENTEMENTE ISSO AQUI NÃO EXISTE, NÃO PODE CHAMAR HOOKS FORA DO ESCOPO DE UM COMPONENTE DE FUNÇÃO
