@@ -35,7 +35,7 @@ a {
     max-width: calc(100vh * (430 / 932)); /* Calcula a largura com base na altura, mantendo proporção */
     max-height: 100%; /* Altura total da viewport */
     background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Para um efeito de leve sombra */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Para um efeito de leve sombra */
     border-radius: 25px; /* Canto arredondado */
   } 
   body {

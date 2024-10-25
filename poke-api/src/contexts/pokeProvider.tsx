@@ -6,7 +6,7 @@ type PokeProviderProps = {
 };
 
 type PokeContextTypes = {
-    loadPokemons: (name?: any,startPokemon?: number, endPokemon?: number) => Promise<void>;
+    loadPokemons: (name?: any,startPokemon?: any, endPokemon?: any) => Promise<void>;
     count: number,
     pokemons: AxiosResponse<any, any>[],
     switchSprite: (e: any) => void,
@@ -23,7 +23,7 @@ const PokeProvider = ({children}: PokeProviderProps) => {
     const [pokemons, setPokemon] = useState<AxiosResponse<any, any>[]>([])
     const [count, setCount] = useState(0)
 
-    const loadPokemons = async (name?: string, startPokemon: number = 1, endPokemon: number = 21) => {
+    const loadPokemons = async (name?: any, startPokemon: any = 1, endPokemon: any = 21) => {
         
         try {
 

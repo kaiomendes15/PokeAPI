@@ -8,6 +8,7 @@ import slider from '../../images/sliders-horizontal-thin-svgrepo-com (2).svg'
 import '../SearchBar/searchbar.css'
 import Spinner from 'react-bootstrap/Spinner';
 import "../../index.css"
+import { Link } from "react-router-dom";
 
 
 
@@ -38,7 +39,7 @@ const PokemonList = () => {
         console.log(minPokemon);
         
         
-        loadPokemons(query, minPokemon, maxPokemon);
+        loadPokemons("", minPokemon, maxPokemon);
         // console.log(maxPokemon, minPokemon);
         // console.log(count);
         
@@ -52,14 +53,16 @@ const PokemonList = () => {
     
     const handleNext = () => {
         
-        if (maxPokemon == 1021) {
-            setMaxPokemon(maxPokemon + 4);
-            setMinPokemon(minPokemon + 4);
-        } else {
+        if (maxPokemon == 1026) {
+            setMaxPokemon(1026);
+            setMinPokemon(1021);
+        } else if (maxPokemon == 1021) {
+            setMaxPokemon(prevMax => prevMax + 5);
+            setMinPokemon(prevMin => prevMin + 20);
+        }
+        else {
             setMaxPokemon(prevMax => prevMax + 20);
             setMinPokemon(prevMin => prevMin + 20);    
-            
-            loadPokemons("", minPokemon, maxPokemon);
             // console.log(maxPokemon, minPokemon);
             
         };
@@ -67,13 +70,16 @@ const PokemonList = () => {
     };
     
     const handlePrevious = () => {
-        if (minPokemon == 1) {
+        if (minPokemon <= 20) {
             setMinPokemon(minPokemon);
             setMaxPokemon(maxPokemon);
-        } else {
+        } else if (maxPokemon == 1026) {
+            setMaxPokemon(prevMax => prevMax - 5);
+            setMinPokemon(prevMin => prevMin - 20);
+        }
+        else {
             setMaxPokemon(prevMax => prevMax - 20);
             setMinPokemon(prevMin => prevMin - 20);
-            loadPokemons("", minPokemon, maxPokemon);
             // console.log(maxPokemon, minPokemon);
         };
         
@@ -171,7 +177,7 @@ const PokemonList = () => {
                         <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
                     </svg>
                 </InteractButton>
-                <p>{maxPokemon} of 1025 Pokemons!</p>
+                <p>{maxPokemon - 1} of 1025 Pokemons!</p>
                 <InteractButton className="buttonNext" onClick={handleNext}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" className="bi bi-caret-right-fill" viewBox="0 0 16 16">
                         <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
@@ -184,15 +190,17 @@ const PokemonList = () => {
                     <Spinner animation="border" variant="warning" className="infos"/>
                 ) : (
                     filteredPokemons.map((pokemon) => (
-                        
-                        <BackgroundColorSetter types={pokemon.data.types} key={pokemon.data.id}>
-                            <div className="infos">
-                                {showID(pokemon.data.id)}
-                                {changeSprite(pokemon)}
-                                {adaptName(pokemon.data.types, pokemon.data.name)}
-                                {showType(pokemon.data.types)}
-                            </div>
-                        </BackgroundColorSetter>
+                        // * dynamic routes
+                        // <Link to={pokemon.data.id}>
+                            <BackgroundColorSetter types={pokemon.data.types} key={pokemon.data.id}>
+                                <div className="infos">
+                                    {showID(pokemon.data.id)}
+                                    {changeSprite(pokemon)}
+                                    {adaptName(pokemon.data.types, pokemon.data.name)}
+                                    {showType(pokemon.data.types)}
+                                </div>
+                            </BackgroundColorSetter>
+                        // </Link>
                     ))
                 )}
                 
@@ -204,7 +212,7 @@ const PokemonList = () => {
                         <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
                     </svg>
                 </InteractButton>
-                <p>{maxPokemon} of 1025 Pokemons!</p>
+                <p>{maxPokemon - 1} of 1025 Pokemons!</p>
                 <InteractButton className="buttonNext" onClick={handleNext}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" className="bi bi-caret-right-fill" viewBox="0 0 16 16">
                         <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
