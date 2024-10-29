@@ -9,7 +9,8 @@ import '../SearchBar/searchbar.css'
 import Spinner from 'react-bootstrap/Spinner';
 import "../../index.css"
 import { Link } from "react-router-dom";
-
+import SearchBar from "../SearchBar";
+import axios from "axios";
 
 
 
@@ -19,37 +20,39 @@ const PokemonList = () => {
     const {pokemons, count} = usePoke();
 
     // GET
-    const {loadPokemons} = usePoke();
+    const {loadPokemons, searchPokemon} = usePoke();
     const [maxPokemon, setMaxPokemon] = useState(21);
     const [minPokemon, setMinPokemon] = useState(1);
-
-
     // filtrar e buscar pokemons
     const [query, setQuery] = useState("")
-
-    const filteredPokemons = pokemons.filter(pokemon => {
-        return pokemon.data.name.toLowerCase().includes(query.toLowerCase())
-    })
-
     
     useEffect(() => {
         // const newOffset = (page - 1) * 20;
         
-        console.log(maxPokemon);
-        console.log(minPokemon);
+        // console.log(maxPokemon);
+        // console.log(minPokemon);
+        // console.log(pokemons);
         
+        loadPokemons(minPokemon, maxPokemon);
+        // console.log(query);
         
-        loadPokemons("", minPokemon, maxPokemon);
         // console.log(maxPokemon, minPokemon);
         // console.log(count);
         
         
     }, [minPokemon, maxPokemon]);
     
-    // useEffect(() => {
+    useEffect(() => {
         
-    //     // loadPokemons("", 1, 1025)
-    // }, [query])
+        console.log(query);
+        
+    }, [query])
+    
+
+    const filteredPokemons = pokemons.filter(pokemon => {
+        return pokemon.data.name.toLowerCase().includes(query.toLowerCase())
+    })
+
     
     const handleNext = () => {
         
@@ -148,16 +151,16 @@ const PokemonList = () => {
 
     
 
-   
 
     return (
         <div className="tela">
         {/* SearchBAR component */}
-            <div className="search-options">
+            {/* <div className="search-options">
                 <div className="searchbar-content">
                     <button className="search-btn">
                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAsFJREFUSEu1lU1IFGEYx//PzOxCZgkV9nGIEulj25ldEqJDCiUkFQUVu2NGHZSgoDoYdOjUqehSiEUZFJRY7oQWBeFJyCjxoLszs22ZEIThoQ+TxK91dp5azWjLnR1Q5/q+7//3/J/3ff5DWOCPFlgfWQE+X2it6KEjIOwlIJAuhEFRAp7DnnxoGK2f3BT3H6C4+OjSRfmTjQQ6kE2AmZlA2ldptHqg+9moEygDsKZkf94KK68LBD8zTxDQwLZVZ5qtH9IisnyoCIJUC+AEEXnB6PJIBaXd3bcns0EyAEpAvQ/CMWb0cwoV8Xjk7WwH/f7DCkliG4FWM+OqqUfO5QTIckgmUTAAtixObUvoLVEn67IcLiORXjBzMikI63ujzQOz7f/jQA6o9UQ4zYzrph454+YC5aDaRECVbfOFuKFddgYEw30EKrbY8if0ljduAFsC4Z0iUTsYLw09UuYIUILhEYDyjNhmEbhouwH4fKFlklf4xsyDpq4tz9Gi8A8iWgLbm28YjSMuAfmSVxgG+IsR0wpztEiNTQ2UjRLDiPS4ASiKuh0COsHcbuhaeS4HV4joPJhvGbp2yhUgqN4DcJyZ601dO+sICATUDTb4HRFSbp6polSWQuCOKVEH1xmDJgfCd4ioGsBHYuzW9cj72aryBUNBkYU2Iqxk5gZT107mHLT0hsyowDjANzklXIvHm/vT679d1hKhBiBpOgC5Mzk2XtHb+3TYsUUzi0UloYLFFjUR0b7s98BDAF0CoxKErWBEBZrYFYs9Gfr3TNa43hSsXOeFXfUr0PYwkQLGGAg9YH4NW7phmg++p+dA9Art03HOMSvJ5YnEo8G/IXP+4UxBPMIrImwC0Ac7ucMwHn+egcwZkBZSlIOFTJ4OItpoM9fEde3uvALSYj5faJXkFVQjFqmb1xblGsh5aZETZMEBPwFMyxoo3GrKbQAAAABJRU5ErkJggg=="/>
                     </button>
+
                     <input 
                     type="search"
                     value={query}
@@ -168,9 +171,14 @@ const PokemonList = () => {
                     <button className="filter-btn">
                         <img src={slider}/>
                     </button>
-            </div>
-        {/* SearchBAR component */}
+            </div> */}
 
+
+        {/* SearchBAR component */}
+            <SearchBar
+                value={query}
+                onChange={(query) => setQuery(query)}
+                onClick={() => searchPokemon(query)} />
             <div className="interact-buttons">
                 <InteractButton className="buttonPrevious" onClick={handlePrevious}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" className="bi bi-caret-left-fill" viewBox="0 0 16 16">
