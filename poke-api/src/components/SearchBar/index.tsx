@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { GoSearch } from "react-icons/go";
-import { usePoke } from "../../contexts/pokeProvider";
+import React, {  useState } from "react";
 import './searchbar.css'
 import slider from '../../images/sliders-horizontal-thin-svgrepo-com (2).svg'
 import '../../index.css'
