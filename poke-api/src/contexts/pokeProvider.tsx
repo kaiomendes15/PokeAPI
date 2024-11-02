@@ -24,7 +24,7 @@ const PokeProvider = ({children}: PokeProviderProps) => {
     const [pokemons, setPokemon] = useState<AxiosResponse<any, any>[]>([])
     const [count, setCount] = useState(0)
 
-    const loadPokemons = async ( startPokemon: any = 1, endPokemon: any = 20) => {
+    const loadPokemons = async ( startPokemon: any = 1, endPokemon: any = 21) => {
         
         try {
 
