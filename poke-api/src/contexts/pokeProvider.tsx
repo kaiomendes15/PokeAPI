@@ -6,12 +6,13 @@ type PokeProviderProps = {
 };
 
 type PokeContextTypes = {
-    loadPokemons: (name?: any,startPokemon?: any, endPokemon?: any) => Promise<void>;
+    loadPokemons: (name?: any,startPokemon?: any, endPokemon?: any) => Promise<void>
+    searchPokemon: (query: string) => Promise<void>
     count: number,
     pokemons: AxiosResponse<any, any>[],
     switchSprite: (e: any) => void,
-    sprite: number
-    // showFilteredPokemons: <void>
+    sprite: number,
+    fetchedPokemon:AxiosResponse<any, any>[]
 };
 
 const PokeContext = createContext({} as PokeContextTypes);
@@ -23,11 +24,9 @@ const PokeProvider = ({children}: PokeProviderProps) => {
     const [pokemons, setPokemon] = useState<AxiosResponse<any, any>[]>([])
     const [count, setCount] = useState(0)
 
-    const loadPokemons = async (name?: any, startPokemon: any = 1, endPokemon: any = 21) => {
+    const loadPokemons = async ( startPokemon: any = 1, endPokemon: any = 20) => {
         
         try {
-
-            if (name == "") {
 
                 const endpoints = [];
                 for (let i = startPokemon; i < endPokemon; i++) {
@@ -48,15 +47,9 @@ const PokeProvider = ({children}: PokeProviderProps) => {
     
                 // setPokemon(results)
 
-            } else {
-                const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
-                console.log(response);
-                
-            }
-
         } catch (error) {
             console.log(error);
-        };
+        }
     };
 
     const [sprite, setSprite] = useState(0);
@@ -69,6 +62,27 @@ const PokeProvider = ({children}: PokeProviderProps) => {
             setSprite(0)
         }
     }
+
+
+    const [fetchedPokemon, setFetchedPokemon] = useState<AxiosResponse<any, any>[]>([])
+    
+    const searchPokemon = async (query: string) => {
+        try {
+            const param = Number(query)
+
+            if (!isNaN(param)) {
+
+                const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${param}`);
+                setFetchedPokemon([response]);
+            } else {
+                const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${query.toLowerCase()}`);
+                setFetchedPokemon([response]);
+            }
+        } catch (error) {
+            console.log("Pokémon não encontrado:", error);
+            setFetchedPokemon([]); // Limpa a lista se a busca falhar
+        }
+    };
 
     
 
@@ -84,7 +98,9 @@ const PokeProvider = ({children}: PokeProviderProps) => {
         count,
         pokemons,
         switchSprite,
-        sprite
+        sprite,
+        searchPokemon,
+        fetchedPokemon
     };
 
     return (

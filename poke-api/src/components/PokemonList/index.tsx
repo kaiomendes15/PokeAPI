@@ -20,36 +20,36 @@ const PokemonList = () => {
     const {pokemons, count} = usePoke();
 
     // GET
-    const {loadPokemons, searchPokemon} = usePoke();
+    const {loadPokemons, searchPokemon, fetchedPokemon} = usePoke();
     const [maxPokemon, setMaxPokemon] = useState(21);
     const [minPokemon, setMinPokemon] = useState(1);
     // filtrar e buscar pokemons
     const [query, setQuery] = useState("")
     
+    // se tiver query, utiliza o searchPokemons
+    // se n tiver query, busca os pokemons utilizando o loadPokemons
     useEffect(() => {
-        // const newOffset = (page - 1) * 20;
+        console.clear();
         
-        // console.log(maxPokemon);
-        // console.log(minPokemon);
-        // console.log(pokemons);
-        
-        loadPokemons(minPokemon, maxPokemon);
-        // console.log(query);
-        
-        // console.log(maxPokemon, minPokemon);
-        // console.log(count);
+        console.log("minPokemon: " + minPokemon);
+        console.log("maxPokemon: " + maxPokemon);
         
         
-    }, [minPokemon, maxPokemon]);
+        if (query) {
+            searchPokemon(query);
+        } else {
+            loadPokemons(minPokemon, maxPokemon);
+        }
+    }, [query, minPokemon, maxPokemon]);
     
-    useEffect(() => {
-        
-        console.log(query);
-        
-    }, [query])
+    // OPERADOR TERNÁRIO
+    // se tiver uma query (se o usuário pesquisar algo) -> displaydePokemons = fetchedPokemon 
+    // se não tiver query (se o searchbar tiver vazio) -> displaydePokemons = pokemons
+    const displayedPokemons = query ? fetchedPokemon : pokemons;
     
+   
 
-    const filteredPokemons = pokemons.filter(pokemon => {
+    const filteredPokemons = displayedPokemons.filter(pokemon => {
         return pokemon.data.name.toLowerCase().includes(query.toLowerCase())
     })
 
@@ -194,10 +194,10 @@ const PokemonList = () => {
             </div>
 
             <div className="pokemon-list">
-                {filteredPokemons.length === 0 ? (
+                {displayedPokemons.length === 0 ? (
                     <Spinner animation="border" variant="warning" className="infos"/>
                 ) : (
-                    filteredPokemons.map((pokemon) => (
+                    displayedPokemons.map((pokemon) => (
                         // * dynamic routes
                         // <Link to={pokemon.data.id}>
                             <BackgroundColorSetter types={pokemon.data.types} key={pokemon.data.id}>

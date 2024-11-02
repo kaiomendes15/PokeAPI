@@ -1,11 +1,11 @@
-declare type PokeTypes = {
-    url: string;
+declare type PokemonData = {
+    id: number;
     name: string;
-    number: number;
-    types: [];
-    sprites: []; // pegar o official-artwork
-    height: number;
-    weight: number;
-    abilities: [];
-    stats: [];
-}
+    types: { type: { name: string } }[];
+    sprites: {
+        front_default: string;
+        other: {
+            'official-artwork': { front_default: string }
+        }
+    };
+};
