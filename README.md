@@ -19,6 +19,7 @@ With this app, you'll be able to:
 ## Future upgrades
 - implement individual pages to each pokemon using dynamic routes.
     - show evolution line, statistics, movements and more
+- implement search by filters
 
 #
 
