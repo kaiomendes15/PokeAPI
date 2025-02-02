@@ -1,10 +1,10 @@
-import { useState } from 'react';
+
 import './toggleSwitcher.css'
 import '../../index.css'
 
 
   type ToggleSwitcherProps = {
-    onChange: (e: any) => void
+    onChange: () => void
   }
 
 const ToggleSwitcher = ({onChange}: ToggleSwitcherProps) => {
