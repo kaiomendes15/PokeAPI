@@ -1,11 +1,17 @@
 declare type PokemonData = {
-    id: number;
+    id: string;
     name: string;
-    types: { type: { name: string } }[];
     sprites: {
         front_default: string;
         other: {
-            'official-artwork': { front_default: string }
-        }
+            "official-artwork": {
+                front_default: string;
+            };
+        };
     };
+    types: {
+        type: {
+            name: string;
+        };
+    }[];
 };

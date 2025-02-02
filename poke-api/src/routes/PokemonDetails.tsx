@@ -7,13 +7,12 @@ import { useEffect } from 'react';
 const PokemonDetails = () => {
 
     const {idLink} = useParams();
-    const {pokemons} = usePoke();
     const {loadPokemons} = usePoke();
     
     
 
     useEffect(() => {
-        loadPokemons("", idLink, idLink)
+        loadPokemons(Number(idLink), Number(idLink));
     }, [])
     
 
