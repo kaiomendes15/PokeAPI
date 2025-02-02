@@ -17,7 +17,7 @@ const SearchBar = ({value, onChange, onClick}: searchBarProps) => {
     const [displayValue, setDisplayValue] = useState(value);
     const deboucedChange = useDebounce({ fn: onChange, delay: 500 });
 
-    function handleChange(event: any) {
+    function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
         setDisplayValue(event.target.value)
         deboucedChange(event.target.value);
     }

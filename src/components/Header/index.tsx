@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+
 import { usePoke } from "../../contexts/pokeProvider";
 import './header.css'
-import logoPokemon from "../../images/pngegg.png"
 import ToggleSwitcher from "../ToggleSwitcher";
 import '../../index.css'
 

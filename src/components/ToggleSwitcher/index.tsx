@@ -3,9 +3,9 @@ import './toggleSwitcher.css'
 import '../../index.css'
 
 
-  type ToggleSwitcherProps = {
-    onChange: () => void
-  }
+type ToggleSwitcherProps = {
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+}
 
 const ToggleSwitcher = ({onChange}: ToggleSwitcherProps) => {
 
